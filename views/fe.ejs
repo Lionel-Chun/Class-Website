@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  
+</head>
+
+<body>
+    <h1>
+        <%= title %>
+    </h1>
+    
+    <script>
+        let cnt = "<%=cnt%>";
+        for (let i=0; i < cnt; i++) {
+            document.write(`<h6>this is line ${i}</h6>`);
+        }
+      </script>
+</body>
+
+</html>
