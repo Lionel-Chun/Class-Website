@@ -9,10 +9,14 @@ router.get('/', function (req, res, next) {
 }).get('/json', function(req, res, next) {
   res.json({monday:"bread", tuesday:"sandwich"});
 }).get('/testPara', function(req, res, next) {
-  for (let q in req.query)
-    console.log(q + " is " + req.query[q]);
-    //console.log("a:", req.query.a, "b:", req.query.b);
-    res.send("Done!");
+  //console.log("a:", req.query.a, "b:", req.query.b);
+  http://localhost:3000/users/testPara?a=100&b=xyz&a=300
+  for (let q in req.query) {
+    // console.log(q + " is " + req.query[q]);
+    console.log(q + " is " , req.query[q]);
+  }
+  //console.log(Object.values(req.query));
+  res.send("Done!");
 });
 
 module.exports = router;
