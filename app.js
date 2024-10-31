@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var teacherRouter = require('./routes/teacher');
 
 var app = express();
 
@@ -22,6 +23,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 //app.use('/prod', require('routes/prod')); // Add a product router
+app.use('/teacher', teacherRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

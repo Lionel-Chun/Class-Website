@@ -11,5 +11,20 @@
         password: <input type="text" name="password">
         <button type="submit">submit</button>
     </form>
+    <hr>
+    <form action="/teacher/detail" method="post">
+        Name:<input type="text" name="name">
+        Tel:<input type="text" name="tel">
+        <input type="radio" name="sex" value="F" selected>F
+        <input type="radio" name="sex" value="M">M
+        Age:
+        <input type="number" name="age" min="0" max="120">
+        Course:
+        <input type="checkbox" name="course" value="chem" id="">CHEM
+        <input type="checkbox" name="course" value="chi" id="">CHI
+        <input type="checkbox" name="course" value="eng" id="">ENG
+        <input type="checkbox" name="course" value="history" id="">History
+        <button type="submit">Submit</button>
+    </form>
 </body>
 </html>

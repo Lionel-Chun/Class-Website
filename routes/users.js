@@ -17,6 +17,9 @@ router.get('/', function (req, res, next) {
   }
   //console.log(Object.values(req.query));
   res.send("Done!");
+}).get('/testPara/:a/:b', function(req, res, next) {
+  console.log("a:", req.params.a, "b:", req.params.b);
+  res.send("Done!");
 }).post('/testForm', function(req, res, next) {
   for(let para in req.body) {
     console.log(req.body[para]);
