@@ -17,6 +17,11 @@ router.get('/', function (req, res, next) {
   }
   //console.log(Object.values(req.query));
   res.send("Done!");
+}).post('/testForm', function(req, res, next) {
+  for(let para in req.body) {
+    console.log(req.body[para]);
+  }
+  res.send("username:" + req.body.username + ", password:" + req.body.password);
 });
 
 module.exports = router;
