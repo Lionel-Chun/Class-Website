@@ -60,6 +60,12 @@ router.get('/createDB', async function(req, res, next) {
       let teacher = await client.db("mdb").collection("teacher").findOne({
         name:req.query.name
       }), s = "";
+
+      if (!teacher) {
+        res.send('Name does not exist');
+        return;
+      }
+
       for (let f in teacher) s+= f + ": " + teacher[f] + "<br>";
       res.send("<h3>Detail of teacher " + req.query.name + "</h3>" + s);   
     } finally {
