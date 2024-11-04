@@ -70,7 +70,9 @@ router.get('/createDB', async function(req, res, next) {
         return;
       }
 
-      for (let f in teacher) if (f!="_id") s+= f + ": " + teacher[f] + "<br>";
+      // for (let f in teacher) if (f!="_id") s+= f + ": " + teacher[f] + "<br>"; 
+      for (let f in teacher) s+= f + ": " + teacher[f] + "<br>";
+
       res.send("<h3>Detail of teacher " + req.query.name + "</h3>" + s);   
     } finally {
       await client.close();
