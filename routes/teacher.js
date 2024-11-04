@@ -57,16 +57,20 @@ router.get('/createDB', async function(req, res, next) {
 
     try {
       await client.connect();
-      let teacher = await client.db("mdb").collection("teacher").findOne({
-        name:req.query.name
-      }), s = "";
+      // let teacher = await client.db("mdb").collection("teacher").findOne({
+      //   name:req.query.name
+      // }), s = "";
 
+      let teacher = await client.db("mdb").collection("teacher").findOne(req.query, {
+        projection: {name:1, course:1, sex:1, _id:0}
+      }), s = "";
+      
       if (!teacher) {
         res.send('Name does not exist');
         return;
       }
 
-      for (let f in teacher) s+= f + ": " + teacher[f] + "<br>";
+      for (let f in teacher) if (f!="_id") s+= f + ": " + teacher[f] + "<br>";
       res.send("<h3>Detail of teacher " + req.query.name + "</h3>" + s);   
     } finally {
       await client.close();
