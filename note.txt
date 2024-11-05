@@ -1,0 +1,13 @@
+show dbs - 展示所有的資料庫
+db - 展示目前所在的資料庫
+use <db> - 將當前所在的資料庫切換到<db>。若<db>不存在，則製作出並且切換到<db>。
+show collections - 打印當前所在的資料庫的所有collection。
+
+db.collection.insertOne(<document>)
+db.collection.insertMany(<document>,<document 2>,...)
+db.collection.insert(<document or array of documents>)
+
+db.collection.find()
+db.collection.find(<query>)
+db.collection.updateOne(<filter>, <update>)
+db.collection.updateMany(<filter>, <update>)

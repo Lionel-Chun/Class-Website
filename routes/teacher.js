@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
 // Replace the placeholder with your Atlas connection string
 const uri = "mongodb://localhost:27017";
@@ -28,7 +28,7 @@ router.get('/', async function(req, res, next) { // list teachers name
     let teacher =  await client.db("mdb").collection("teacher").find().toArray(), s = "";
     // let s = "";
     for (let t of teacher) 
-      s+=t.name + " <a href=/teacher/detail?name=" + t.name + ">detail</a><br>";
+      s+=t.name + " <a href=/teacher/detail?name=" + t.name + ">detail</a> | <a href=/teacher/edit?_id=" + t._id + ">edit</a><br>";
     res.send("<h3>Teacher name list</h3>" + s);
   } finally {
     await client.close();
@@ -82,6 +82,33 @@ router.get('/detail', async function(req, res, next) {
   }
 });
 
+router.get('/edit', async function (req, res, next) {
+  const query = {_id: new ObjectId(req.query._id)};
+  try {
+    await client.connect();
+    let teacher =  await client.db("mdb").collection("teacher").findOne(query);
+    console.log(teacher);
+    console.log(teacher.course.chem != undefined);
+    res.render("teacher", teacher);
+  } finally {
+    await client.close();
+  }
+});
+
+router.post('/edit', async function (req, res, next) {
+  
+  try {
+    console.log(req.body);
+    console.log(req.body.name);
+    console.log(req.body.tel);
+    console.log(req.body.sex);
+    console.log(req.body.course);
+  } finally {
+    res.end('ok');
+    await client.close();
+  }
+});
+
 // router.post('/detail', function(req, res, next) {
 //   let name = req.body.name;
 //   let tel = req.body.tel;
@@ -103,7 +130,7 @@ router.get('/detail', async function(req, res, next) {
 //   res.send(html);
 // });
 
-router.post('/insert', async function(req, res, next) {
+router.post('/add', async function(req, res, next) {
 
   console.log(req.body);
   req.body.age = Number.parseInt(req.body.age);

@@ -1,0 +1,30 @@
+<h3>Edit</h3>
+<form action="/teacher/edit" method="post">
+    <label for="name">Name: </label>
+    <input type="text" name="name" id="Name" value="<%=name%>">
+    <hr>
+    <label for="tel">Tel: </label>
+    <input type="text" name="tel" id="tel" value="<%=tel%>">
+    <hr>
+    Gender: 
+    <label>
+        <input type="radio" name="sex" value="F" <%=(sex=='F' ? 'checked' : '')%> selected>F
+    </label>
+    <label>
+        <input type="radio" name="sex" value="M" <%=( sex=='M' ? 'checked' : '')%>>M
+    </label>
+    <hr>
+    <label for="age">Age: </label>
+    <input type="number" name="age" min="0" max="120" id="age" value="<%=age%>">
+    <hr>
+    <label>
+        Course:(<%=course%>)<br>
+        <input type="checkbox" name="course" value="chem" <%=course.includes('chem') ? 'checked' : ''%>>CHEM
+        <input type="checkbox" name="course" value="chi"  <%=course.includes('chi') ? 'checked' : ''%>>CHI
+        <input type="checkbox" name="course" value="eng" <%=course.includes('eng') ? 'checked' : ''%>>ENG
+        <input type="checkbox" name="course" value="history" <%=course.includes('history') ? 'checked' : ''%>>History
+    </label>
+    <br>
+    <hr>
+    <button type="submit">Update</button>
+</form>
