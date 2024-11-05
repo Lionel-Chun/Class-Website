@@ -96,13 +96,17 @@ router.get('/edit', async function (req, res, next) {
 });
 
 router.post('/edit', async function (req, res, next) {
+
+  const query = {_id: new ObjectId(req.body._id)};
   
   try {
     console.log(req.body);
+    console.log(req.body._id);
     console.log(req.body.name);
     console.log(req.body.tel);
     console.log(req.body.sex);
     console.log(req.body.course);
+
   } finally {
     res.end('ok');
     await client.close();
