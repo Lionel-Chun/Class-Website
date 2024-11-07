@@ -87,8 +87,8 @@ router.get('/edit', async function (req, res, next) {
   try {
     await client.connect();
     let teacher =  await client.db("mdb").collection("teacher").findOne(query);
-    console.log(teacher);
-    console.log(teacher.course.chem != undefined);
+    // console.log(teacher);
+    // console.log(teacher.course.chem != undefined);
     res.render("teacher", teacher);
   } finally {
     await client.close();
@@ -96,37 +96,64 @@ router.get('/edit', async function (req, res, next) {
 });
 
 router.post('/edit', async function (req, res, next) {
-
+  const query = {_id: new ObjectId(req.body._id)};
   try {
     await client.connect();
-    let teacher = await client.db("mdb").collection("teacher").findOne({
-      name: req.body.origName
-    }), s = "";
-    req.body.course = req.body.course.splite(",");
-    req.body.age = Number.parseInt(req,body.age);
+    let teacher = await client.db("mdb").collection("teacher").findOne(query), s = "";
+    //req.body.course = req.body.course.splite(",");
+    // console.log(req.body.course);
+    console.log("*************teacher**************");
+    console.log(teacher);
     let newTeacher = {};
-    for (let f in teacher) if (f != "_id") newTeacher[f] = req.body[f];
+    for (let f in teacher) {
+      if (f != "_id") newTeacher[f] = req.body[f];
+    }
+
+    console.log("*************newTeacher**************");
+    console.log(query);
+    console.log(newTeacher);
+
     await client.db("mdb").collection("teacher").updateOne(
-      {name: req.body._id }, {$set:newTeacher}
+      query, {$set:newTeacher}
     );
     res.redirect("/teacher");
   } finally {
     await client.close();
   }
-  
-  try {
-    console.log(req.body);
-    console.log(req.body._id);
-    console.log(req.body.name);
-    console.log(req.body.tel);
-    console.log(req.body.sex);
-    console.log(req.body.course);
-
-  } finally {
-    res.end('ok');
-    await client.close();
-  }
 });
+
+// router.post('/edit', async function (req, res, next) {
+
+//   try {
+//     await client.connect();
+//     let teacher = await client.db("mdb").collection("teacher").findOne({
+//       name: req.body.origName
+//     }), s = "";
+//     req.body.course = req.body.course.splite(",");
+//     req.body.age = Number.parseInt(req,body.age);
+//     let newTeacher = {};
+//     for (let f in teacher) if (f != "_id") newTeacher[f] = req.body[f];
+//     await client.db("mdb").collection("teacher").updateOne(
+//       {name: req.body._id }, {$set:newTeacher}
+//     );
+//     res.redirect("/teacher");
+//   } finally {
+//     await client.close();
+//   }
+  
+//   try {
+//     console.log(req.body);
+//     console.log(req.body._id);
+//     console.log(req.body.name);
+//     console.log(req.body.tel);
+//     console.log(req.body.sex);
+//     console.log(req.body.course);
+
+//   } finally {
+//     res.end('ok');
+//     await client.close();
+//   }
+// });
 
 // router.post('/detail', function(req, res, next) {
 //   let name = req.body.name;
