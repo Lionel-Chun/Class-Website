@@ -97,7 +97,22 @@ router.get('/edit', async function (req, res, next) {
 
 router.post('/edit', async function (req, res, next) {
 
-  const query = {_id: new ObjectId(req.body._id)};
+  try {
+    await client.connect();
+    let teacher = await client.db("mdb").collection("teacher").findOne({
+      name: req.body.origName
+    }), s = "";
+    req.body.course = req.body.course.splite(",");
+    req.body.age = Number.parseInt(req,body.age);
+    let newTeacher = {};
+    for (let f in teacher) if (f != "_id") newTeacher[f] = req.body[f];
+    await client.db("mdb").collection("teacher").updateOne(
+      {name: req.body._id }, {$set:newTeacher}
+    );
+    res.redirect("/teacher");
+  } finally {
+    await client.close();
+  }
   
   try {
     console.log(req.body);
