@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher List</title>
+</head>
+<body>
+    <script>
+        async function getData(url) {
+
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'GET',
+                });
+
+                try  {                    
+                    return await response.json();
+                } catch (parseError) {
+                    console.log(parseError);
+                }
+
+            } catch (networkError) {
+                console.log(networkError);
+            }
+        };
+        let teachers = null;
+        getData("/teacher/getAll").then(function(teacher){
+            console.log(teacher)
+        })
+    </script>
+</body>
+</html>

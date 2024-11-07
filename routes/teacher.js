@@ -128,4 +128,28 @@ router.post('/edit', async function (req, res, next) {
   }
 });
 
+router.get('/getAll', async function(req, res, next) { // list teachers name
+
+  try {
+    await client.connect();
+    let teacher =  await client.db("mdb").collection("teacher").find().toArray(), s = "";
+    console.log(teacher);
+    const jsonContent = JSON.stringify(teacher);
+    res.end(jsonContent);
+  } finally {
+    await client.close();
+  }
+
+});
+
+router.post('/search', async function(req, res, next) {
+  try {
+    await client.connect();
+    let data = await client.db("mdb").collection("teacher").find(req.body).toArray();
+    res.json(data);
+  } finally {
+    await client.close();
+  }
+});
+
 module.exports = router;

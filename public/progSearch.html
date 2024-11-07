@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Progressive web Search</h1>
+    <form>
+        <input type="hidden" name="_id">
+        <input type="text" name="CName" id="" placeholder="Search Chinese Name">
+        <input type="text" name="EName" id="" placeholder="Search English Name">
+        <select name="member">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <button type="button" onclick="search()">Submit</button>
+    </form>
+    <table id = "searchResult">
+
+    </table>
+    <script>
+        function addHeaders(table, keys) {
+            var row = table.insertRow();
+            for( var i = 0; i < keys.length; i++ ) {
+                var cell = row.insertCell();
+                cell.appendChild(document.createTextNode(keys[i]));
+            }
+        }
+
+        const search = async() => {
+            const form = document.querySelectorAll('form')[0], formData = new FormData();
+            Array.from(form.elements).filter(input=>input!="button").forEach((input) => {
+                formData.append(input.name, input.value);
+            });
+            try {
+                const response = await fetch("/teacher/search", {
+                    method: "POST",
+                    body: formData,
+                });
+                if (!response.ok) throw new Error(`Response status: ${response.status}`);
+                const json = await response.json();
+
+                let html = "";
+
+
+                for (const [key, value] of Object.entries(json)) {
+                   console.log(`${key} : `, `${value}`); 
+                };
+
+                console.log(json.length);
+                document.getElementById("searchResult").innerHTML = html;
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
+    </script>
+</body>
+</html>
