@@ -66,7 +66,7 @@ router.get('/detail', async function(req, res, next) {
     // }), s = "";
 
     let teacher = await client.db("mdb").collection("teacher").findOne(req.query, {
-      projection: {name:1, course:1, sex:1, _id:0}
+      projection: {_id:0}
     }), s = "";
     
     if (!teacher) {
@@ -96,7 +96,11 @@ router.get('/edit', async function (req, res, next) {
 });
 
 router.post('/edit', async function (req, res, next) {
-  const query = {_id: new ObjectId(req.body._id)};
+  // @deprecated Instead, use `static createFromTime()` to set a numeric value for the new ObjectId.
+  // const query = {_id: new ObjectId(req.body._id)};
+
+  const query = {_id: ObjectId.createFromHexString(req.body._id)};
+  console.log(query);
   try {
     await client.connect();
     let teacher = await client.db("mdb").collection("teacher").findOne(query), s = "";

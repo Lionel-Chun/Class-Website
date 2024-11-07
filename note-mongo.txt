@@ -11,3 +11,6 @@ db.collection.find()
 db.collection.find(<query>)
 db.collection.updateOne(<filter>, <update>)
 db.collection.updateMany(<filter>, <update>)
+
+About Skip
+https://www.mongodb.com/docs/manual/reference/method/cursor.skip/
