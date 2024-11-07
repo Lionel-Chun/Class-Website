@@ -15,12 +15,6 @@ const client = new MongoClient(uri,  {
     }
 );
 
-// const teacher = [
-//     {name:'Alex',tel:'91234567',sex:'M',age:30,course:['eng', 'chi']},
-//     {name:'Betty',tel:'92345678',sex:'F',age:28,course:['chem']},
-//     {name:'Carie',tel:'61234567',sex:'F',age:50,course:['history']}
-// ];
-
 router.get('/', async function(req, res, next) { // list teachers name
 
   try {
